@@ -10,6 +10,7 @@ import App from 'module/main/App.vue';
 import axios from 'axios';
 import router from 'routers';
 import VueHighlightJS from "vue-highlightjs";
+import store from 'store'
 Vue.use(VueBus);
 Vue.use(Vuex);
 
@@ -23,5 +24,6 @@ Vue.use(VueHighlightJS);
 new Vue({
    el: '#app',
    router,
+   store,
    render: h => h(App)
  })

@@ -30,6 +30,10 @@ exports.getMenu  = function(req, res){
                     title: 'vue-bus示例'
                   },
                   {
+                    index:'/vuex',
+                    title: 'vuex示例'
+                  },
+                  {
                     index:'/page2',
                     title: '选项13-2'
                   }
