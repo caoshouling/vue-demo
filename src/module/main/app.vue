@@ -1,17 +1,37 @@
 <template>
- <div>
-      <index>  </index>
+
+<div id = 'app-container'>
+    
+   <div >
+		<transition name="fade"
+		            mode="out-in">
+			<router-view></router-view>
+		</transition>
+	</div>
+     
+  
  </div>
+ 
+ 
+ 
+ 
 </template>
    
 <script>
-import index from '../../layout/index.vue';
+
 export default {
-  components : {index} , 
   data () {
     return {
       msg: '入口文件!'
     }
+  },
+  methods:{
+      goto(path){
+        console.log(path);
+        
+        this.$router.push({path:path})
+      }
+
   }
 }
 </script>

@@ -1,21 +1,27 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueBus from 'vue-bus';
-import VueRouter from 'vue-router';
+
 //全局引入配置
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import css from '../../css/style.css';//放在elementui后面，便于覆盖
-import App from './app.vue';
-
+import App from 'module/main/App.vue';
+import axios from 'axios';
+import router from 'routers';
+import VueHighlightJS from "vue-highlightjs";
 Vue.use(VueBus);
 Vue.use(Vuex);
-Vue.use(VueRouter);
+
+//全局祖册axios
+Vue.prototype.$axios = axios;
 
 //全局引入配置
 Vue.use(ElementUI);
+Vue.use(VueHighlightJS);
 
 new Vue({
-   el:'#app',
+   el: '#app',
+   router,
    render: h => h(App)
-});
+ })

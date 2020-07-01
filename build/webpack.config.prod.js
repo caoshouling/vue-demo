@@ -22,13 +22,13 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const smp = new SpeedMeasureWebpackPlugin();
 
 const PATHS = {
-    src: path.join(__dirname, 'src')
+    src: path.join(__dirname, '../src')
 };
 //Html压缩,兼容多页面应用处理
 const setMPA = () => {
     const entry = {};
     const htmlWebpackPlugins = [];
-    const entryFiles = glob.sync(path.join(__dirname, './src/module/*/index.js'));
+    const entryFiles = glob.sync(path.join(__dirname, '../src/module/*/index.js'));
 
     Object.keys(entryFiles)
         .map((index) => {
@@ -41,7 +41,7 @@ const setMPA = () => {
             htmlWebpackPlugins.push(
                 new HtmlWebpackPlugin({
                     inlineSource: '.css$',
-                    template: path.join(__dirname, `src/module/${pageName}/index.html`),
+                    template: path.join(__dirname, `../src/module/${pageName}/index.html`),
                     filename: `${pageName}.html`,
                     chunks: ['element-ui-common','commons',pageName],
                     inject: true,//Css和js会自动注入到html
@@ -70,10 +70,30 @@ const { entry, htmlWebpackPlugins } = setMPA();
 module.exports = {
     entry: entry,
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: '[name]_[chunkhash:8].js'
+        path: path.join(__dirname, '../dist'),
+        filename: 'js/[name]_[chunkhash:8].js'
+       
     },
     mode: 'production',
+    resolve: {
+        alias: {
+          src: path.resolve(__dirname, '../src'),
+          components: path.resolve(__dirname, '../src/components'),
+          api: path.resolve(__dirname, '../src/api'),
+          asserts: path.resolve(__dirname, '../src/asserts'),
+          css: path.resolve(__dirname, '../src/css'),
+          module: path.resolve(__dirname, '../src/module'),
+          plugin: path.resolve(__dirname, '../src/plugin'),
+          routers: path.resolve(__dirname, '../src/routers'),
+          store: path.resolve(__dirname, '../src/store'),
+          utils: path.resolve(__dirname, '../src/utils'),
+          views: path.resolve(__dirname, '../src/views'),
+          fonts: path.resolve(__dirname, '../src/fonts'),
+          layout: path.resolve(__dirname, '../src/layout'),
+          icons: path.resolve(__dirname, '../src/icons')
+        },
+        extensions: ['.vue', '.js', '.json']
+    },
     module: {
         rules: [
             {
@@ -82,7 +102,7 @@ module.exports = {
             },
             {
                 test: /.js$/,
-                include: path.resolve('src'),
+                include: path.resolve('../src'),
                 use: [
                     {
                         loader: 'thread-loader',
@@ -127,8 +147,12 @@ module.exports = {
             {
                 test: /.css$/,
                 use: [
-                    //'vue-style-loader',
-                     MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                        },
+                      
+                     },
                     'css-loader',
                     
                 ]
@@ -136,7 +160,12 @@ module.exports = {
             {
                 test: /.less$/,
                 use: [
-                     MiniCssExtractPlugin.loader,
+                     {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                        },
+                      
+                     },
                     'css-loader',
                     'less-loader',                 
                     {
@@ -165,7 +194,8 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name]_[hash:8].[ext]'
+                            name: '[name]_[hash:8].[ext]',
+                            outputPath:'image/'//options会直接传给fallback指定的loader
                         }
                     },
                     {
@@ -200,7 +230,9 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name]_[hash:8][ext]'
+                            name: '[name]_[hash:8].[ext]',
+                            outputPath:'fonts/'//
+                            
                         }
                     }
                 ]
