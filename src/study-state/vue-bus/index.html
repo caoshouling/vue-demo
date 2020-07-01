@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+   
+  </div>
+
+
+
+</body>
+<script lang="javascript">
+
+  Vue.component('childa', {
+
+    data() {
+      return {
+        edittype: 222
+      }
+    },
+    methods: {
+
+      changeEditType() {
+        //触发全局事件globalEvent
+        this.$EventBus.$emit('globalEvent', 'Child-A')
+
+      }
+    },
+    mounted() {
+      //绑定全局事件globalEvent
+      this.$EventBus.$on('globalEvent', (val) => {
+        console.log('A-child :  globalEvent  来源-' + val);
+      });
+    },
+    template: `
+      <div>
+        <p>使用：子组件child -A</p>
+        <input type="text" v-model="edittype" @change="changeEditType">
+      
+      </div>`
+  })
+  Vue.component('childb', {
+
+    data() {
+      return {
+        edittype: 222
+      }
+    },
+    methods: {
+
+      changeEditType() {
+
+
+      }
+    },
+    mounted() {
+      //绑定全局事件globalEvent
+      this.$EventBus.$on('globalEvent', (val) => {
+        console.log('B-child :  globalEvent  来源-' + val);
+      });
+    },
+    template: `
+      <div>
+        <p>使用：子组件child -B</p>
+        <input type="text" v-model="edittype" @change="changeEditType">
+        
+      </div>`
+  })
+
+
+  // 组件 A
+  Vue.component('A', {
+    template: `
+    <div>
+      <p>this is A component!</p>
+      <input type="text" v-model="mymessage" @input="passData(mymessage)"> 
+      <br>-------child-A----------
+      <childa ></childa>
+    </div>
+  `,
+    data() {
+      return {
+        mymessage: 'hello brother1'
+      }
+    },
+    methods: {
+      passData(val) {
+        //触发全局事件globalEvent
+        this.$EventBus.$emit('globalEvent', 'A')
+      }
+    },
+    mounted() {
+      //绑定全局事件globalEvent
+      this.$EventBus.$on('globalEvent', (val) => {
+        console.log(' A:  globalEvent  来源-' + val);
+      });
+    }
+  });
+
+  // 组件 B
+  Vue.component('B', {
+    template: `
+    <div>
+      <p>this is B component!</p>
+      <p>组件A 传递过来的数据：{{brothermessage}}</p>
+      <br>-------child-B----------
+      <childb ></childb>
+    </div>
+  `,
+    data() {
+      return {
+        mymessage: 'hello brother2',
+        brothermessage: ''
+      }
+    },
+    mounted() {
+      //绑定全局事件globalEvent
+      this.$EventBus.$on('globalEvent', (val) => {
+        this.brothermessage = val;
+        console.log('B:  globalEvent  来源-' + val);
+      });
+    }
+  });
+
+  //定义中央事件总线
+  const EventBus = new Vue();
+
+  // 将中央事件总线赋值到 Vue.prototype 上，这样所有组件都能访问到了
+  Vue.prototype.$EventBus = EventBus;
+
+  const app = new Vue({
+    el: '#app',
+    mounted() {
+      //绑定全局事件globalEvent
+      this.$EventBus.$on('globalEvent', (val) => {
+        console.log(' APP:  globalEvent  来源-' + val);
+      });
+    },
+    template: `
+    <div>
+      <br><font color='red'>-------任意一个组件，所有监听了事件的组件都可以触发，不管是子组件、孙组件、还是兄弟组件、还是兄弟组件的子类组件---------
+      </font>
+      <br>-------AAAAAAAAAAAAAAAAA----------
+      <A />
+      <br>-------BBBBBBBBBBBBBBBBB----------
+      <B />
+    </div>
+  `
+  });
+
+</script>
+
+</html>

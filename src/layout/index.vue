@@ -1,24 +1,47 @@
 <style scoped>
-
-   
 </style>
-  
 
 <template>
-<div>
+  <div>
+  <el-container>
+  <el-aside width="200px">
+       <app-nav></app-nav>
+  </el-aside>
+  <el-container>
+    <el-header>
+        <app-head></app-head>
+    </el-header>
+    <el-main>
+        <app-main></app-main>
+    </el-main>
+    <el-footer>
+        <app-foot></app-foot>
+    </el-footer>
+  </el-container>
 
-  <el-progress :text-inside="true" :stroke-width="26" :percentage="70"></el-progress>
-  <el-progress :text-inside="true" :stroke-width="24" :percentage="100" status="success"></el-progress>
-  <el-progress :text-inside="true" :stroke-width="22" :percentage="80" status="warning"></el-progress>
-  <el-progress :text-inside="true" :stroke-width="20" :percentage="50" status="exception"></el-progress>
-   
+</el-container>
 
   </div>
-
 </template>
 
   <script>
 
-    export default {
-    };
-  </script>
+import nav from "./components/nav.vue";
+import main from "./components/main.vue";
+import head from "./components/head.vue";
+import foot from "./components/foot.vue";
+
+export default {
+  components:{
+     appNav:nav,
+     appMain:main,
+     appHead:head,
+     appFoot:foot,
+  },
+  computed: {
+    key() {
+      return this.$router.path;
+    }
+  }
+};
+</script>

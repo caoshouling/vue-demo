@@ -73,4 +73,10 @@ Vue.bus.emit('someEvent');
 
 
 
+------------------------------------------mocker-api前后端分离-----------------------------------
+1.mock -api
+2.mockjs
 
+------------------------------------------npm i --save-dev cross-env-------------------------------------------------------
+在package.json中传自定义命令的方式：使用cross-env
+使用方式： cross-env myparams=value   这样的定义可以在webpack配置文件中通过process.env来获取值。

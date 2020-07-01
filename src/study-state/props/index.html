@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+<body>
+
+        <div id="app">
+               <h2> sfsf </h2>
+        </div>
+
+       
+
+</body>
+<script lang="javascript">
+
+
+// 父组件
+Vue.component('parent', {
+  template:`
+    <div>
+      <p>this is parent component! : {{message}}</p>
+      <child :message="message" v-on:getChildData="getChildData"></child>
+    </div>
+  `,
+  data() {
+    return {
+      message: 'hello'
+    }
+  },
+  methods:{
+    // 执行子组件触发的事件
+    getChildData(val) {
+      console.log(val);
+      this.message  = val;
+    }
+  }
+});
+
+// 子组件
+Vue.component('child', {
+  template:`
+    <div>
+      <input type="text" v-model="myMessage" @input="passData(myMessage)">
+    </div>
+  `,
+  /**
+   * 得到父组件传递过来的数据
+   * 这里的定义最好是写成数据校验的形式，免得得到的数据是我们意料之外的
+   *
+   * props: {
+   *   message: {
+   *     type: String,
+   *     default: ''
+   *   }
+   * }
+   *
+  */
+  props:['message'], 
+  data() {
+    return {
+      // 这里是必要的，因为你不能直接修改 props 的值
+      myMessage: this.message
+    }
+  },
+  methods:{
+    passData(val) {
+      // 数据状态变化时触发父组件中的事件
+      this.$emit('getChildData', val);
+    }
+  }
+});
+    
+var app=new Vue({
+  el: '#app',
+  template: `
+    <div>
+      <parent />
+    </div>
+  `
+});
+
+</script>
+</html>
