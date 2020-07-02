@@ -62,6 +62,11 @@ const  routers = [
         path: "/vuebus",
         name: 'vuebus',
         component: () => import('views/vue-bus/index')
+      },
+      {
+        path: "/vuex",
+        name: 'vuex',
+        component: () => import('views/vuex-demo/index')
       }
     ]
   },
