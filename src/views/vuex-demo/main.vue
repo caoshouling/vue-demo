@@ -3,7 +3,9 @@
       
        main组件 <button @click="handleComCode">清空各个字段</button>
        <br>
-         {{main.comCode}}
+        main.comCode: {{main.comCode}}
+         <br>
+         main.comCode:<input v-model="main.comCode" > <br>
 
         
     </div>
@@ -11,9 +13,9 @@
 <script>
     import { mapState, mapActions } from 'vuex'
     export default {
-         computed: {
+        computed: {
             ...mapState({
-               main: state => state.main
+               main: state => state.main.main
             }),
             // ...mapGetters('cart', {
             //     products: 'cartProducts',

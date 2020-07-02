@@ -5,35 +5,34 @@
 </style>
 <template>
     <div>
-        <h1>首页</h1>
-        {{ count }}
-        <button @click="handleIncrement">+1</button>
-        <button @click="handleDecrease">-1</button>
-        <button @click="handleIncrementMore">+5</button>
-        <div>{{ list }}</div>
-        <div>{{ listCount }}</div>
-        <button @click="handleActionIncrement">action +1</button>
+        <h1>Vuex测试 </h1>
+  
         <button @click="handleAsyncIncrement">async +1</button>
        
-       <h1 class = "mytitle">Index页面：  下面是vue-bus测试：通过事件的方式传递数据。由于是消息总线，所有监听了该消息的组件均可以接受到消息，包括父子、相邻、子孙甚至任何没有关系的组件。</h1>
-        
+       <h1 class = "mytitle">Vuex测试 </h1>
+
+        <div> <main_edit ></main_edit> </div>
+        <br>
+        -----------------------------<br>
         <itemcar ></itemcar>
+        <br>
         ------------------------------------------
+        <br>
         <div> <itemkind ></itemkind> </div>
          ------------------------------------------
-         <div> <main ></main> </div>
+         
         
     </div>
 </template>
 <script>
     import itemcar from './itemcar.vue';
     import itemkind from './itemkind.vue';
-    import main from './main.vue';
+    import main_edit from './main.vue';
     export default {
         components: {
             itemcar,
             itemkind,
-            main
+            main_edit
         },
         computed: {
             count () {

@@ -2,7 +2,7 @@
 import proposal from 'mock/bean/proposal.js'
 
 const state = {
-  main: proposal.main
+  main: proposal.prpMain
 }
 const mutations = {
   CLEAR_SUMPREMIUM:(state,data) =>{

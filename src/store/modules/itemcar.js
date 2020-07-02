@@ -2,22 +2,39 @@
 import proposal from 'mock/bean/proposal.js'
 
 const state = {
-  itemcar: proposal.itemcar
+  itemcar: proposal.prpItemcar
 }
 
 const mutations = {
   CHG_ENGINENO: (state, data) => {
+    console.log("改变engineNo -CHG_ENGINENO")
     state.itemcar.engineNo = data;
-    if (state.itemcar.engineNo.length > 6) {
-        state.itemcar.licenseNo = state.itemcar.engineNo.substring(0,6);
-    }
+    
+    state.itemcar.licenseNo = data + "000000000";
+    
+  },
+  SET_ENGINENO: (state, data) => {
+    console.log("设置engineNo -SET_ENGINENO")
+    state.itemcar.engineNo = data;
+  },
+  SET_CARKINDCODE: (state, data) => {
+    console.log("设置engineNo -SET_ENGINENO")
+    state.itemcar.carkindCode = data;
   }
 }
 
 const actions = {
-    chg_engineNo({ commit }, data) {
+  chgEngineNo({ commit }, data) {
      commit('CHG_ENGINENO', data)
-  }
+  },
+  setEngineNo({ commit }, data) {
+    commit('CHG_ENGINENO', data)
+    //commit('SET_ENGINENO', data)
+ },
+ setCarkindCode({ commit }, data) {
+  commit('SET_CARKINDCODE', data)
+  //commit('SET_ENGINENO', data)
+}
 }
 
 export default {
