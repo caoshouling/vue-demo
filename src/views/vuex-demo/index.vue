@@ -5,11 +5,21 @@
 </style>
 <template>
     <div>
-        <h1>Vuex测试 </h1>
   
-        <button @click="handleAsyncIncrement">async +1</button>
-       
-       <h1 class = "mytitle">Vuex测试 </h1>
+       <h1 class = "mytitle">Vuex测试结论：不适合在投保录入使用</h1>
+           <p>1、严格模式中，对于字段多的项目双向绑定复杂，
+                 非严格模式又不能控制人为直接修改值的问题，很尴尬。
+           </p>
+           <p>2、方法的调用太多vuex的api（必须action方式调用），不利于以后换框架。
+           </p>
+           <p>3、学习和理解起来有一定的成本，不利于管理。
+           </p>
+           <p>4、vueX适合场景：全局组件公共信息多，比如页面全局配置、用户信息、全局样式切换等。
+               <br>
+                 vueX不适合场景：大量字段需要双向绑定
+           </p>
+        <h1 class = "mytitle">  ---------------------------------------------------------------------------</h1>
+        <br>
 
         <div> <main_edit ></main_edit> </div>
         <br>

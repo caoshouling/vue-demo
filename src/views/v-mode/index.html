@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+<body>
+
+        <div id="app">
+               <h2> sfsf </h2>
+        </div>
+
+       
+
+</body>
+<script lang="javascript">
+
+
+
+
+Vue.component('child',{
+    props:{
+      value:Object, //v-model会自动传递一个字段为value的prop属性
+    },
+    data(){
+      return {
+        myMessage:this.value,
+        edittype:222
+      }
+    },
+    methods:{
+      changeMessage(){
+        console.log('---changeName--');
+        this.$emit('input',this.myMessage);//通过如此调用可以改变父组件上v-model绑定的值
+      },
+     
+      changeEditType(){
+        this.myMessage = this.edittype;
+
+      }
+    },
+    template:`
+      <div>
+        <p>使用：this.$emit('input',this.myMessage);才能传到父组件</p>
+        使用$emit：<input type="text" v-model="myMessage" @change="changeMessage">
+        <br>
+        不使用$emit：<input type="text" v-model="edittype" @change="changeEditType">
+      
+      </div>`
+  })
+
+  
+
+  Vue.component('parent',{
+    template:`
+      <div>
+        <h2>父子组件通讯：传字符串值</h2>
+        <p>父页面：{{message}}  </p>
+        <br>---child-------------
+        <child v-model="message"></child>
+       
+      </div>`
+    ,
+    data(){
+      return {
+        message:'hello'
+      }
+    }
+  })
+
+  var app=new Vue({
+    el:'#app',
+    template:`
+      <div>
+        <parent></parent>
+      </div>
+    `
+  })
+
+</script>
+</html>

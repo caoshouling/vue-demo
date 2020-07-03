@@ -47,9 +47,9 @@
                  //方法一
                  //this.$store.dispatch('itemkind/add_Itemkind',itemkind)
                  //方法二
-                 //this.add_Itemkind(itemkind);
-                 //方法三：
-                 this.prpItemkindList.push(itemkind);
+                 this.add_Itemkind(itemkind);
+                 //方法三：不规范的写法
+                 //this.prpItemkindList.push(itemkind);
                 
             },
             remove () {

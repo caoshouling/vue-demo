@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+<body>
+
+        <div id="app">
+               <h2> sfsf </h2>
+        </div>
+
+       
+
+</body>
+<script lang="javascript">
+
+
+Vue.component('child2',{
+    props:{
+      value:Object, //v-model会自动传递一个字段为value的prop属性
+    },
+    data(){
+      return {
+        person3:this.value,
+        edittype:222
+      }
+    },
+    methods:{
+      changeName(){
+        console.log('---changeName--');
+        //this.$emit('input',this.person);//通过如此调用可以改变父组件上v-model绑定的值
+      },
+      changeAge(){
+        console.log('---changeAge--');
+        //this.$emit('input',this.person);
+      },
+      changeEditType(){
+        this.person3.name = 2;
+
+      }
+    },
+    template:`
+      <div>
+        2<input type="text" v-model="person3.name" @change="changeName">
+        2<input type="text" v-model="person3.age" @change="changeAge">
+        2<input type="text" v-model="edittype" @change="changeEditType">
+        
+      </div>`
+  })
+
+
+
+Vue.component('child',{
+    props:{
+      value:Object, //v-model会自动传递一个字段为value的prop属性
+    },
+    data(){
+      return {
+        person2:this.value,
+        edittype:222
+      }
+    },
+    methods:{
+      changeName(){
+        console.log('---changeName--');
+        //this.$emit('input',this.person);//通过如此调用可以改变父组件上v-model绑定的值
+      },
+      changeAge(){
+        console.log('---changeAge--');
+        //this.$emit('input',this.person);
+      },
+      changeEditType(){
+        this.person2.name = 4;
+
+      }
+    },
+    template:`
+      <div>
+         <p> 传送对象，修改对象的属性，不需要使用$emit </p>
+        name:<input type="text" v-model="person2.name" @change="changeName">
+        <br>
+        age: <input type="text" v-model="person2.age" @change="changeAge">
+        <br>
+        changeName :<input type="text" v-model="edittype" @change="changeEditType">
+        <br>---child2-------------
+        <child2 v-model="person2" > </child2>
+      </div>`
+  })
+
+  
+  var person = {};
+  person.name = '张三';
+  person.age = '李四';
+
+  Vue.component('parent',{
+    template:`
+      <div>
+       <h2>父子组件通讯：传对象</h2>
+        <p>name：{{person.name}}  </p>
+        <p>age: {{person.age}} </p>
+        <br>---child-------------
+        <child v-model="person"></child>
+       
+      </div>`
+    ,
+    data(){
+      return {
+        person,person
+      }
+    }
+  })
+
+  var app=new Vue({
+    el:'#app',
+    template:`
+      <div>
+        <parent></parent>
+      </div>
+    `
+  })
+
+</script>
+</html>
